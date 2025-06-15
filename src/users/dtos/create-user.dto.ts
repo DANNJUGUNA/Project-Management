@@ -44,5 +44,4 @@ export class CreateUserDto {
   })
   password: string;
   role: string;
-  project_id?: string;
 }
