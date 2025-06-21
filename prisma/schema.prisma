@@ -9,23 +9,27 @@ datasource db {
 }
 
 model User {
-  id        Int      @default(autoincrement())
+  id        Int      @default(autoincrement()) @unique
   name      String
   phone     String
   email     String   @unique
   password  String
   role      Role     @default(USER)
   createdAt DateTime @default(now())
+
+  projects  Project []
 }
 
 model Project {
   id            Int      @default(autoincrement()) @unique
   title         String
-  assignedTo    String?
+  assignedTo    Int?
   status        Status   @default(Not_Assigned)
   dueDate       DateTime
   dateCompleted DateTime
   createdAt     DateTime @default(now())
+  
+  assignedUser User? @relation(fields: [assignedTo], references: [id])
 }
 
 enum Role {
